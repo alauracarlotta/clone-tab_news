@@ -7,10 +7,14 @@ export default function HomePage() {
 		<div>
 			Home
 			<MainAccount />
-			<div style={{display: "flex"}}>
-				<div style={{color: "green"}}><Income /></div>
-				<div style={{color: "red"}}><Expenses /></div>
+			<div style={{ display: "flex" }}>
+				<div style={{ color: "green" }}>
+					<Income />
+				</div>
+				<div style={{ color: "red" }}>
+					<Expenses />
+				</div>
 			</div>
 		</div>
-	)
+	);
 }
