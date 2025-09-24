@@ -2,6 +2,8 @@
 
 Estudos do curso.dev by Filipe Deschamps
 
+## Proposta de Arquitetura e Pastas
+
 ``
 📦 root
 |----- 📁 pages
