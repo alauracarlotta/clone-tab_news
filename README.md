@@ -4,7 +4,6 @@ Estudos do curso.dev by Filipe Deschamps
 
 ## Proposta de Arquitetura e Pastas
 
-``
 📦 root
 |----- 📁 pages
 |-------|----- 📜index.js
@@ -19,4 +18,3 @@ Estudos do curso.dev by Filipe Deschamps
 |-------|-------|----- 📁staging
 |-------|-------|----- 📁production
 |----- 📁 tests
-``
