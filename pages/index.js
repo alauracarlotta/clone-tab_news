@@ -1,8 +1,8 @@
-import { Expenses } from "../components/Expenses";
-import { Income } from "../components/Income";
-import { MainAccount } from "../components/MainAccount";
+import { Expenses } from "components/Expenses";
+import { Income } from "components/Income";
+import { MainAccount } from "components/MainAccount";
 
-export default async function HomePage() {
+export default function HomePage() {
 	return (
 		<div>
 			Home
