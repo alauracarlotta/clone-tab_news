@@ -1,8 +1,8 @@
-// /api/status
-// qual função do arquivo tem essa responsabilidade?
+import database from "../../../../infra/database.js";
 
-export default function status(request, response) {
-	// response.status(200).send("Eu mesma, a Laura Carlotta");
+export default async function status(request, response) {
+	const result = await database.query("SELECT 1 + 1 as sum;");
+	console.log(result.rows[0].sum);
 
 	return response.status(200).json({ chave: "valor" });
 }
