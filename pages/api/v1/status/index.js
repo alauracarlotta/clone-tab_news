@@ -1,8 +1,11 @@
 import database from "infra/database.js";
 
 export default async function status(request, response) {
-	const result = await database.query("SELECT 1 + 1 as sum;");
-	console.log(result.rows[0].sum);
+	// controller
+	const updatedAt = Date.now();
 
-	return await response.status(200).json({ chave: "valor" });
+	await response.status(200).json({
+		// view chave api rest (snake_case)
+		updated_at: updatedAt,
+	});
 }
