@@ -4,11 +4,10 @@
 
 ### In progress
 
-- [ ] Conexões Usadas
-
 ### Done
 
 - [x] Versão do postgres
 - [x] Conexões Máximas
+- [x] Conexões Usadas
 
 ### Archive

@@ -15,5 +15,8 @@ test("GET to /api/v1/status should return 200", async () => {
 	expect(responseBody.max_connections).toBeDefined();
 	expect(Number(responseBody.max_connections)).toBeGreaterThan(0);
 
+	expect(responseBody.active_connections).toBeDefined();
+	expect(Number(responseBody.active_connections)).toBeGreaterThanOrEqual(1);
+
 	// console.log(response);
 });
