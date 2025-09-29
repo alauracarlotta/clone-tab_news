@@ -3,8 +3,16 @@ import database from "infra/database.js";
 export default async function status(request, response) {
 	const getDatabaseVersion = await database.query("SHOW server_version;");
 	const getMaxConnection = await database.query("SHOW max_connections;");
+
+	const databaseName = request.query.databaseName;
+	console.log(databaseName);
+	// "SELECT count(*)::int FROM pg_stat_activity WHERE datname = 'local_db';"
+	// "SELECT count(*)::int FROM pg_stat_activity WHERE datname = '';"
+	// "SELECT count(*)::int FROM pg_stat_activity WHERE datname = '';';"
+	// "SELECT count(*)::int FROM pg_stat_activity WHERE datname = ''; SELECT pg_sleep(4); --';"
+
 	const getActiveConnections = await database.query(
-		"SELECT count(*)::int FROM pg_stat_activity WHERE datname = 'local_db';",
+		`SELECT count(*)::int FROM pg_stat_activity WHERE datname = '${databaseName}';`,
 	);
 
 	// controller
