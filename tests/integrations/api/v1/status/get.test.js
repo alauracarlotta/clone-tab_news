@@ -12,5 +12,8 @@ test("GET to /api/v1/status should return 200", async () => {
 	expect(responseBody.database_version).toBeDefined();
 	expect(responseBody.database_version).toContain("PostgreSQL");
 
+	expect(responseBody.max_connections).toBeDefined();
+	expect(Number(responseBody.max_connections)).toBeGreaterThan(0);
+
 	// console.log(response);
 });
