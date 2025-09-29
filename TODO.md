@@ -2,12 +2,12 @@
 
 ### To do
 
-- [ ] Versão do postgres
-- [ ] Conexões Máximas
-- [ ] Conexões Usadas
-
 ### In progress
 
 ### Done
+
+- [x] Versão do postgres
+- [x] Conexões Máximas
+- [x] Conexões Usadas
 
 ### Archive
