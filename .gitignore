@@ -188,5 +188,6 @@ sketch
 ### Other ###
 markdown
 **/temp
+/teste_branch_staging_db
 
 # End of https://www.toptal.com/developers/gitignore/api/node,nextjs,react
