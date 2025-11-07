@@ -7,7 +7,7 @@ export default async function migrations(request, response) {
 	const allowedMethods = ["GET", "POST"];
 	if (!allowedMethods.includes(request.method)) {
 		return response.status(405).json({
-			error: `Method ${request.status} not allowed`,
+			error: `Method '${request.method}' not allowed`,
 		});
 	}
 
@@ -19,7 +19,7 @@ export default async function migrations(request, response) {
 		const defaultMigrationsConfig = {
 			dbClient: dbClient,
 			dryRun: true,
-			dir: join("infra", "migrations"),
+			dir: join(process.cwd(), "infra", "migrations"),
 			direction: "up",
 			verbose: true,
 			migrationsTable: "pgmigrations",
