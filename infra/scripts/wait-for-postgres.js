@@ -16,6 +16,6 @@ function checkPostgresUp() {
 	}
 }
 
-process.stdout.write("\n🔴 Aguardando Postgres aceitar conexões.");
+process.stdout.write("\n🔴 Aguardando Postgres aceitar conexões.\n");
 
 checkPostgresUp();

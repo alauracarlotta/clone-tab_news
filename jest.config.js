@@ -8,9 +8,11 @@ const nextJest = require("next/jest");
 const createJestConfig = nextJest({
 	dir: ".",
 });
+
+const TIMEOUT_IN_MILLISECONDS = 60000;
 const jestConfig = createJestConfig({
 	moduleDirectories: ["node_modules", "<rootDir>"],
-	// testTimeout: 60000,
+	testTimeout: TIMEOUT_IN_MILLISECONDS,
 });
 
 module.exports = jestConfig;
