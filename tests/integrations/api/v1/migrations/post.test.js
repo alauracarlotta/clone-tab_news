@@ -4,7 +4,7 @@ import orchestrator from "tests/orchestrator";
 beforeAll(async () => {
 	await orchestrator.waitForAllServices();
 	await database.query("drop schema public cascade; create schema public;");
-});
+}, 60000);
 
 test("POST to /api/v1/migrations should return 200", async () => {
 	// ## 1ª REQUEST
