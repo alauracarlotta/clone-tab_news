@@ -1,3 +1,6 @@
 .next
 *.md
-*.yaml
+.yaml
+.yml
+.vscode/settings.json
+*.jsonc
