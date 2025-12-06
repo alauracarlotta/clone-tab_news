@@ -21,7 +21,9 @@ async function waitForAllServices() {
 	}
 }
 
-export default {
+const waitServicesUp = {
 	waitForAllServices,
 	webServerURL,
 };
+
+export default waitServicesUp;

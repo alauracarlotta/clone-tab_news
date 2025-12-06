@@ -14,10 +14,12 @@ async function query(queryObject) {
 	}
 }
 
-export default {
+const databaseQueries = {
 	query,
 	getNewClient,
 };
+
+export default databaseQueries;
 
 async function getNewClient() {
 	const client = new Client({

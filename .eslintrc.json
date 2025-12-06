@@ -1,0 +1,17 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"next/core-web-vitals",
+		"plugin:jest/recommended",
+		"prettier"
+	],
+
+	"overrides": [
+		{
+			"files": ["**/migrations/*.js"],
+			"rules": {
+				"no-unused-vars": "off"
+			}
+		}
+	]
+}
