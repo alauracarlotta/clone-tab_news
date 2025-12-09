@@ -18,4 +18,4 @@ if [ -n "$REAL_MESSAGE" ]; then
 fi
 
 # 🤜 Caso contrário → menu do CZ
-exec < /dev/tty && npx cz --hook --no-edit || true
+exec < /dev/tty && npx cz --hook || true
