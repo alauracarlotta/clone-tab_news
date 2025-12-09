@@ -20,4 +20,4 @@ fi
 # Chamamos o Commitizen no modo "hook" passando o arquivo de mensagem.
 # Isso faz com que o cz apenas preencha "$MSG_FILE" e NÃO execute o commit.
 # Garantimos TTY para a interação.
-exec < /dev/tty && npx cz --hook "$MSG_FILE" --no-editor --no-verify </dev/tty >/dev/tty 2>/dev/tty || true
+exec < /dev/tty && npx cz --hook --no-editor "$MSG_FILE" --no-verify </dev/tty >/dev/tty 2>/dev/tty || true
