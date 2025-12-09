@@ -18,7 +18,10 @@
 // .... [ ] Se eu dou um GIT COMMIT => Abre o menu do Commitizen
 // .... .... NÃOOOOO abre a mensagem de editar commit no final
 
-// .... [ ] Se eu dou um GIT COMMIT --AMEND => NÃOOOOO abre o menu do Commitizen
+// .... [X] Se eu dou um GIT COMMIT --AMEND => NÃOOOOO abre o menu do Commitizen
 // .... .... ABREEEEE a última msg de commit para eu editar
 
 // ! Teste5
+// Does this change affect any open issues ? No
+// Com o script do prepare - commit - msg, está funcionando perfeitamente no git commit--amend.
+// Não abre o menu do Commitizen e vai direto para a mensagem do último commit.Com
