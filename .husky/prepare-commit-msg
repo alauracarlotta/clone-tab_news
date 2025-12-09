@@ -1,11 +1,23 @@
 #!/bin/sh
+
 MSG_FILE=$1
 COMMIT_SOURCE=$2
 SHA1=$3
 
+# Obtém o conteúdo real ignorando linhas de comentário e espaços
 REAL_MESSAGE=$(grep -v '^\s*#' "$MSG_FILE" | tr -d '[:space:]')
 
-if [ -n "$SHA1" ]; then exit 0; fi
-if [ -n "$REAL_MESSAGE" ]; then exit 0; fi
+# Caso AMEND → não abre menu
+if [ -n "$SHA1" ]; then
+  exit 0
+fi
 
-exec < /dev/tty && npx cz --hook "$MSG_FILE" --no-editor </dev/tty >/dev/tty 2>/dev/tty || true
+# Caso já exista mensagem real → não chama CZ
+if [ -n "$REAL_MESSAGE" ]; then
+  exit 0
+fi
+
+# Chamamos o Commitizen no modo "hook" passando o arquivo de mensagem.
+# Isso faz com que o cz apenas preencha "$MSG_FILE" e NÃO execute o commit.
+# Garantimos TTY para a interação.
+exec < /dev/tty && npx cz --hook "$MSG_FILE" --no-editor --no-verify </dev/tty >/dev/tty 2>/dev/tty || true
