@@ -4,20 +4,27 @@ MSG_FILE=$1
 COMMIT_SOURCE=$2
 SHA1=$3
 
-# Obtém o conteúdo real ignorando linhas de comentário e espaços
 REAL_MESSAGE=$(grep -v '^\s*#' "$MSG_FILE" | tr -d '[:space:]')
 
-# Caso AMEND → não abre menu
+# Se é --amend → não chama CZ
 if [ -n "$SHA1" ]; then
   exit 0
 fi
 
-# Caso já exista mensagem real → não chama CZ
+# Se já existe mensagem → não chama CZ
 if [ -n "$REAL_MESSAGE" ]; then
   exit 0
 fi
 
-# Chamamos o Commitizen no modo "hook" passando o arquivo de mensagem.
-# Isso faz com que o cz apenas preencha "$MSG_FILE" e NÃO execute o commit.
-# Garantimos TTY para a interação.
-exec < /dev/tty && npx cz --hook --no-editor "$MSG_FILE" --no-verify </dev/tty >/dev/tty 2>/dev/tty || true
+# Gerar mensagem via cz --hook num arquivo temporário (TTY garantido)
+TEMP_MSG="$(mktemp)"
+exec < /dev/tty && npx cz --hook "$TEMP_MSG" --no-editor </dev/tty >/dev/tty 2>/dev/tty || true
+
+# Se cz gerou algo, prefixa com marcador e grava em $MSG_FILE
+if [ -s "$TEMP_MSG" ]; then
+  printf '%s\n' '# cz-generated' > "$MSG_FILE"
+  cat "$TEMP_MSG" >> "$MSG_FILE"
+fi
+
+rm -f "$TEMP_MSG"
+exit 0
