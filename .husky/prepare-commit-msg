@@ -4,18 +4,23 @@ MSG_FILE=$1
 COMMIT_SOURCE=$2
 SHA1=$3
 
-# 🔍 Obtém o conteúdo real ignorando linhas que começam com #
+# Conteúdo real ignorando comentários
 REAL_MESSAGE=$(grep -v '^\s*#' "$MSG_FILE" | tr -d '[:space:]')
 
-# 🤜 Caso AMEND → não abre menu
+# Caso amend → NÃO chama cz → segue fluxo padrão
 if [ -n "$SHA1" ]; then
   exit 0
 fi
 
-# 🤜 Caso já exista mensagem real → não chama CZ
+# Caso já exista mensagem real → não chama cz
 if [ -n "$REAL_MESSAGE" ]; then
   exit 0
 fi
 
-# 🤜 Caso contrário → menu do CZ
-exec < /dev/tty && npx cz --hook --no-editor || true
+# Caso commit normal → abre menu
+exec < /dev/tty && cz --hook --no-editor
+
+# Após o cz gerar a msg, aplicamos explicitamente o commit sem abrir editor:
+git commit --amend --no-edit --file "$MSG_FILE" >/dev/null 2>&1 || true
+
+exit 0

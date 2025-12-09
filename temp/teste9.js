@@ -34,3 +34,6 @@
 
 // ! Teste8
 // --- IGNORE ---
+
+// ! Teste9
+// git commit --amend --no-edit --file "$MSG_FILE" >/dev/null 2>&1 || true
