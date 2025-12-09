@@ -17,8 +17,19 @@ if [ -n "$REAL_MESSAGE" ]; then
   exit 0
 fi
 
-# Caso commit novo normal → executa CZ com TTY
-# GIT_EDITOR aponta para um script que copia a mensagem do cz para o arquivo
-GIT_EDITOR="cat > $MSG_FILE" < /dev/tty npx cz 2>/dev/null || true
+# Caso commit novo normal → executa CZ
+# Cria um wrapper para o editor que salva em $MSG_FILE
+TEMP_EDITOR="/tmp/cz-editor-$$.sh"
+cat > "$TEMP_EDITOR" <<EOF
+#!/bin/sh
+cat > "$MSG_FILE"
+EOF
+chmod +x "$TEMP_EDITOR"
+
+# Executa cz com o editor wrapper
+GIT_EDITOR="$TEMP_EDITOR" npx cz < /dev/tty 2>/dev/null || true
+
+# Limpa
+rm -f "$TEMP_EDITOR"
 
 exit 0
