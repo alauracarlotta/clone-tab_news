@@ -1,1 +1,21 @@
+#!/bin/sh
+
+MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+# 🔍 Obtém o conteúdo real ignorando linhas que começam com #
+REAL_MESSAGE=$(grep -v '^\s*#' "$MSG_FILE" | tr -d '[:space:]')
+
+# 🤜 Caso AMEND → não abre menu
+if [ -n "$SHA1" ]; then
+  exit 0
+fi
+
+# 🤜 Caso já exista mensagem real → não chama CZ
+if [ -n "$REAL_MESSAGE" ]; then
+  exit 0
+fi
+
+# 🤜 Caso contrário → menu do CZ
 exec < /dev/tty && npx cz --hook || true
