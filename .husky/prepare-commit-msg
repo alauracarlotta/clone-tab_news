@@ -19,4 +19,6 @@ fi
 
 # Caso commit novo normal → executa CZ com TTY
 # GIT_EDITOR aponta para um script que copia a mensagem do cz para o arquivo
-GIT_EDITOR="cat > $MSG_FILE" exec < /dev/tty npx cz 2>/dev/null || true
+GIT_EDITOR="cat > $MSG_FILE" < /dev/tty npx cz 2>/dev/null || true
+
+exit 0
