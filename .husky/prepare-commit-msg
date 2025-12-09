@@ -4,7 +4,7 @@ MSG_FILE=$1
 COMMIT_SOURCE=$2
 SHA1=$3
 
-# Obtém o conteúdo real ignorando linhas de comentário e espaços
+# Obtém o conteúdo real ignorando linhas de comentário e espaços (preserva novas linhas)
 REAL_MESSAGE=$(grep -v '^\s*#' "$MSG_FILE" | tr -d '[:space:]')
 
 # Caso AMEND → não abre menu
@@ -17,5 +17,12 @@ if [ -n "$REAL_MESSAGE" ]; then
   exit 0
 fi
 
-# Caso commit novo normal → abre menu e NÃO abre editor
-exec < /dev/tty && npx cz --hook "$MSG_FILE" --no-editor || true
+# Rodar cz lendo/escrevendo a partir do TTY, garantindo que a prompt funcione
+npx cz --hook "$MSG_FILE" --no-editor </dev/tty >/dev/tty 2>/dev/tty || true
+
+# Se cz colocou algo no arquivo de commit, evitar que o Git abra um editor interativo
+if [ -s "$MSG_FILE" ]; then
+  export GIT_EDITOR=:
+fi
+
+exit 0
