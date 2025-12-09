@@ -1,35 +1,11 @@
 #!/bin/sh
-
 MSG_FILE=$1
 COMMIT_SOURCE=$2
 SHA1=$3
 
-# Obtém o conteúdo real ignorando linhas de comentário e espaços
 REAL_MESSAGE=$(grep -v '^\s*#' "$MSG_FILE" | tr -d '[:space:]')
 
-# Caso AMEND → não abre menu
-if [ -n "$SHA1" ]; then
-  exit 0
-fi
+if [ -n "$SHA1" ]; then exit 0; fi
+if [ -n "$REAL_MESSAGE" ]; then exit 0; fi
 
-# Caso já exista mensagem real → não chama CZ
-if [ -n "$REAL_MESSAGE" ]; then
-  exit 0
-fi
-
-# Caso commit novo normal → executa CZ
-# Cria um wrapper para o editor que salva em $MSG_FILE
-TEMP_EDITOR="/tmp/cz-editor-$$.sh"
-cat > "$TEMP_EDITOR" <<EOF
-#!/bin/sh
-cat > "$MSG_FILE"
-EOF
-chmod +x "$TEMP_EDITOR"
-
-# Executa cz com o editor wrapper
-GIT_EDITOR="$TEMP_EDITOR" npx cz < /dev/tty 2>/dev/null || true
-
-# Limpa
-rm -f "$TEMP_EDITOR"
-
-exit 0
+exec < /dev/tty && npx cz --hook "$MSG_FILE" --no-editor </dev/tty >/dev/tty 2>/dev/tty || true
