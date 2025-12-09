@@ -1,1 +1,11 @@
-npx commitlint --edit "$1" --quiet >/dev/null 2>&1
+#!/bin/sh
+npx commitlint --edit "$1"
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+  echo "❌ Commit inválido"
+  exit 1
+fi
+
+echo "✔ Commit válido"
+exit 0
