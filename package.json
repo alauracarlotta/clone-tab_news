@@ -52,9 +52,7 @@
 		"prettier": "^3.6.2"
 	},
 	"husky": {
-		"hooks": {
-			"prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
-		}
+		"prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
 	},
 	"config": {
 		"commitizen": {
