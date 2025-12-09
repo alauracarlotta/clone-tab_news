@@ -1,1 +1,2 @@
-exec < /dev/tty && npx cz --hook --no-edit || true
+exec < /dev/tty
+npx cz --hook --no-edit || true
