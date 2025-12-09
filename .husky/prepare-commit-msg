@@ -1,2 +1,14 @@
+#!/bin/sh
+# Se EXISTE uma mensagem de commit e NÃO for amend
+if [ -n "$2" ] && [ "$2" = "commit" ]; then
+  exit 0
+fi
+
+# Se for amend, deixa o editor abrir normalmente
+if [ "$2" = "amend" ]; then
+  exit 0
+fi
+
+# Caso NORMAL: chama commitizen
 exec < /dev/tty
-npx cz --hook --no-edit || true
+npx cz --hook || true
