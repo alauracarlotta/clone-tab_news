@@ -1,1 +1,0 @@
-alias commit="git cz"
