@@ -4,25 +4,15 @@ MSG_FILE=$1
 COMMIT_SOURCE=$2
 SHA1=$3
 
-# Mensagem já existente?
-REAL_MESSAGE=$(grep -v '^\s*#' "$MSG_FILE" | tr -d '[:space:]')
-
 # Caso amend → não chama CZ
-if [ "$COMMIT_SOURCE" = "commit" ] && [ -n "$SHA1" ]; then
+if [ -n "$SHA1" ]; then
   exit 0
 fi
 
-# Caso já exista mensagem → segue fluxo normal
-if [ -n "$REAL_MESSAGE" ]; then
+# Caso mensagem já exista → não chama CZ
+if [ -s "$MSG_FILE" ]; then
   exit 0
 fi
 
-# Abre menu
-exec < /dev/tty && cz --hook --no-editor
-
-# Agora copiamos a mensagem para dentro do arquivo do commit
-# para finalizar sem editor e sem amend
-cz_msg=$(git rev-parse --show-toplevel)/.git/COMMIT_EDITMSG
-cat "$MSG_FILE" > "$cz_msg"
-
-exit 0
+# Caso commit normal → abre menu CZ
+exec < /dev/tty && npx cz --hook --no-editor
