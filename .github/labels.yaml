@@ -1,0 +1,31 @@
+- name: bug
+  color: d73a4a
+  description: Algo não está funcionando
+
+- name: feat
+  color: a2eeef
+  description: Nova funcionalidade ou melhoria visível
+
+- name: refactor
+  color: cfd3d7
+  description: Melhorias internas sem alterar comportamento
+
+- name: docs
+  color: 0075ca
+  description: Atualização ou criação de documentação
+
+- name: design
+  color: fbca04
+  description: Ajustes ou propostas de UI/identidade visual
+
+- name: ui/ux
+  color: 5319e7
+  description: Experiência do usuário e fluxo de interface
+
+- name: help-wanted
+  color: 0e8a16
+  description: Ajuda externa é bem-vinda nesta tarefa
+
+- name: needs-triage
+  color: b60205
+  description: Ainda precisa ser classificada
