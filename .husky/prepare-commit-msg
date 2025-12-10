@@ -2,8 +2,6 @@
 # Quando o commit é amend, $2 = amend
 # Quando é commit automático, $3 tem hash
 
-# TODO
-
 MSG_FILE="$1"
 COMMIT_SOURCE="$2"
 
