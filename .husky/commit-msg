@@ -1,5 +1,5 @@
 #!/bin/sh
-MSG_FILE="$1"
+MSG_FILE=$1
 
 echo "🧽 commit-msg rodando – limpando editor"
 
