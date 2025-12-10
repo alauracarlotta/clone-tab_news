@@ -1,4 +1,1 @@
-echo "🧽 commit-msg rodando – limpando editor"
-echo "-------------------------------------------"
-
 npx commitlint --edit $1
