@@ -1,9 +1,6 @@
-#!/bin/sh
 # Quando o commit é normal, $2 (COMMIT_SOURCE) vem vazio
 # Quando o commit é amend, $2 = amend
 # Quando é commit automático, $3 tem hash
-
-#!/bin/sh
 
 MSG_FILE="$1"
 COMMIT_SOURCE="$2"
@@ -13,10 +10,16 @@ echo "MSG_FILE: $MSG_FILE"
 echo "COMMIT_SOURCE: $COMMIT_SOURCE"
 
 # ------------------------------------------------------
+# FORCE NO-EDITOR for the commit process
+# ------------------------------------------------------
+export GIT_EDITOR=true
+
+# ------------------------------------------------------
 # 1️⃣ AMEND → deixa editor abrir
 # ------------------------------------------------------
 if [ "$COMMIT_SOURCE" = "commit" ]; then
   echo "ℹ️ Amend detectado — deixando editor"
+  export GIT_EDITOR="$(git config --global core.editor)"
   exit 0
 fi
 
@@ -25,21 +28,20 @@ fi
 # ------------------------------------------------------
 if [ "$COMMIT_SOURCE" = "message" ]; then
   echo "ℹ️ Commit com -m detectado — ignorando hook"
+  export GIT_EDITOR="$(git config --global core.editor)"
   exit 0
 fi
 
-# Função pra testar se mensagem está vazia de verdade
 mensagem_vazia() {
-  # remove linhas comentadas e vazias
   contents=$(grep -vE '^(#|$)' "$MSG_FILE")
   if [ -z "$contents" ]; then
-    return 0 # está vazia
+    return 0
   fi
-  return 1 # tem msg válida
+  return 1
 }
 
 # ------------------------------------------------------
-# 3️⃣ Se ainda NÃO tem mensagem válida → rodar commitizen
+# 3️⃣ Se ainda NÃO tem mensagem → chamar cz
 # ------------------------------------------------------
 if mensagem_vazia; then
   echo "⚡ Mensagem vazia — rodando Commitizen"
@@ -49,8 +51,7 @@ if mensagem_vazia; then
 fi
 
 # ------------------------------------------------------
-# 4️⃣ Se agora tem msg → sair sem abrir editor
+# 4️⃣ Agora tem mensagem → sair
 # ------------------------------------------------------
-echo "✔ Mensagem já preenchida — finalizando sem editor"
+echo "✔ Mensagem preenchida — concluindo sem editor"
 exit 0
-
