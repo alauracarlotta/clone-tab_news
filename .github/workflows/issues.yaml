@@ -16,7 +16,7 @@ jobs:
       - name: Add assignees
         uses: actions-ecosystem/action-add-assignees@v1
         with:
-          assignees: alauracarlotta
+          assignees: alauracarlotta | alaracarlottareviewer
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add labels
@@ -30,7 +30,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const milestoneTitle = "Sprint atual";
+            const milestoneTitle = "FUNDAÇÃO";
             const { data: milestones } = await github.rest.issues.listMilestones({
               owner: context.repo.owner,
               repo: context.repo.repo,
