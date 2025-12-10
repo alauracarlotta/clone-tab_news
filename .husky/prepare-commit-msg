@@ -3,16 +3,54 @@
 # Quando o commit é amend, $2 = amend
 # Quando é commit automático, $3 tem hash
 
-# Se EXISTE uma mensagem de commit e NÃO for amend
-if [ -n "$2" ] && [ "$2" = "commit" ]; then
+#!/bin/sh
+
+MSG_FILE="$1"
+COMMIT_SOURCE="$2"
+
+echo "🔥 PREPARE-COMMIT-MSG rodando..."
+echo "MSG_FILE: $MSG_FILE"
+echo "COMMIT_SOURCE: $COMMIT_SOURCE"
+
+# ------------------------------------------------------
+# 1️⃣ AMEND → deixa editor abrir
+# ------------------------------------------------------
+if [ "$COMMIT_SOURCE" = "commit" ]; then
+  echo "ℹ️ Amend detectado — deixando editor"
   exit 0
 fi
 
-# Se for amend, deixa o editor abrir normalmente
-if [ "$2" = "amend" ]; then
+# ------------------------------------------------------
+# 2️⃣ COMMIT COM -m → não mexe
+# ------------------------------------------------------
+if [ "$COMMIT_SOURCE" = "message" ]; then
+  echo "ℹ️ Commit com -m detectado — ignorando hook"
   exit 0
 fi
 
-# Caso NORMAL: chama commitizen
-exec < /dev/tty
-npx cz --hook || true
+# Função pra testar se mensagem está vazia de verdade
+mensagem_vazia() {
+  # remove linhas comentadas e vazias
+  contents=$(grep -vE '^(#|$)' "$MSG_FILE")
+  if [ -z "$contents" ]; then
+    return 0 # está vazia
+  fi
+  return 1 # tem msg válida
+}
+
+# ------------------------------------------------------
+# 3️⃣ Se ainda NÃO tem mensagem válida → rodar commitizen
+# ------------------------------------------------------
+if mensagem_vazia; then
+  echo "⚡ Mensagem vazia — rodando Commitizen"
+  exec < /dev/tty
+  npx cz --hook || true
+  exit 0
+fi
+
+# ------------------------------------------------------
+# 4️⃣ Se agora tem msg → sair sem abrir editor
+# ------------------------------------------------------
+echo "✔ Mensagem já preenchida — finalizando sem editor"
+exit 0
+
