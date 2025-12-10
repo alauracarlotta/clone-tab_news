@@ -1,47 +1,47 @@
 - name: needs-triage
-  color: #b60205
+  color: b60205
   description: Ainda precisa ser classificada
 
 - name: bug | fix
-  color: #d73a4a
+  color: d73a4a
   description: Algo não está funcionando
 
 - name: feat | feature
-  color: #00FF00
+  color: 00FF00
   description: Nova funcionalidade ou melhoria visível
 
 - name: refactor | refac
-  color: #cfd3d7
+  color: cfd3d7
   description: Melhorias internas sem alterar comportamento
 
 - name: docs | documentation | wiki
-  color: #0075ca
+  color: 0075ca
   description: Atualização ou criação de documentação
 
 - name: ci/cd | build
-  color: #CC00CC
+  color: CC00CC
   description: Continous Integration ou Continuous Deployment
 
 - name: test | tests
-  color: #FFEF00
+  color: FFEF00
   description: Adição ou modificação de testes
 
 - name: design
-  color: #fbca04
+  color: fbca04
   description: Ajustes ou propostas de UI/identidade visual
 
 - name: ui/ux
-  color: #5319e7
+  color: 5319e7
   description: Experiência do usuário e fluxo de interface
 
 - name: help-wanted
-  color: #0e8a16
+  color: 0e8a16
   description: Ajuda externa é bem-vinda nesta tarefa
 
 - name: DESAFIOS
-  color: #FF9A00
+  color: FF9A00
   description: DESAFIOS#
 
 - name: ESTUDAR
-  color: #0075ca
+  color: 0075ca
   description: Estudar sobre o assunto

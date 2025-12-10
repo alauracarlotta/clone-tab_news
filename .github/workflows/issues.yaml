@@ -16,7 +16,7 @@ jobs:
       - name: Add assignees
         uses: actions-ecosystem/action-add-assignees@v1
         with:
-          assignees: alauracarlotta | alaracarlottareviewer
+          assignees: alauracarlotta
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add labels
