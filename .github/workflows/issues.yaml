@@ -1,0 +1,60 @@
+name: Standardize new issues
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  repository-projects: write
+
+jobs:
+  setup_issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add assignees
+        uses: actions-ecosystem/action-add-assignees@v1
+        with:
+          assignees: alauracarlotta
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add labels
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: |
+            needs-triage
+
+      - name: Add milestone
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const milestoneTitle = "Sprint atual";
+            const { data: milestones } = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all'
+            });
+            let milestone = milestones.find(m => m.title === milestoneTitle);
+            if (!milestone) {
+              const res = await github.rest.issues.createMilestone({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: milestoneTitle
+              });
+              milestone = res.data;
+            }
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              milestone: milestone.number
+            });
+
+      - name: Add to a Project
+        uses: alex-page/github-project-automation-plus@v0.8.3
+        with:
+          project: "Nome do seu projeto"
+          column: "To do"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
