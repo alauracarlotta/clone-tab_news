@@ -1,1 +1,18 @@
-npx commitlint --edit $1
+#!/bin/sh
+MSG_FILE="$1"
+
+echo "🧽 commit-msg rodando – limpando editor"
+
+# Se a mensagem tem conteúdo válido
+contents=$(grep -vE '^(#|$)' "$MSG_FILE")
+
+if [ -n "$contents" ]; then
+  echo "✔ Mensagem válida detectada, rodando lint"
+  # Rodamos commitlint AQUI
+  npx commitlint --edit "$MSG_FILE"
+  exit $?
+fi
+
+# Caso contrário, deixa abrir editor normalmente
+echo "ℹ️ Mensagem vazia — editor será aberto"
+exit 0

@@ -10,16 +10,10 @@ echo "MSG_FILE: $MSG_FILE"
 echo "COMMIT_SOURCE: $COMMIT_SOURCE"
 
 # ------------------------------------------------------
-# FORCE NO-EDITOR for the commit process
-# ------------------------------------------------------
-export GIT_EDITOR=true
-
-# ------------------------------------------------------
-# 1️⃣ AMEND → deixa editor abrir
+# 1️⃣ AMEND → deixa editor abrir normalmente
 # ------------------------------------------------------
 if [ "$COMMIT_SOURCE" = "commit" ]; then
   echo "ℹ️ Amend detectado — deixando editor"
-  export GIT_EDITOR="$(git config --global core.editor)"
   exit 0
 fi
 
@@ -28,30 +22,22 @@ fi
 # ------------------------------------------------------
 if [ "$COMMIT_SOURCE" = "message" ]; then
   echo "ℹ️ Commit com -m detectado — ignorando hook"
-  export GIT_EDITOR="$(git config --global core.editor)"
   exit 0
 fi
 
 mensagem_vazia() {
   contents=$(grep -vE '^(#|$)' "$MSG_FILE")
-  if [ -z "$contents" ]; then
-    return 0
-  fi
-  return 1
+  [ -z "$contents" ]
 }
 
 # ------------------------------------------------------
-# 3️⃣ Se ainda NÃO tem mensagem → chamar cz
+# 3️⃣ Se mensagem ainda está vazia → chama CZ
 # ------------------------------------------------------
 if mensagem_vazia; then
   echo "⚡ Mensagem vazia — rodando Commitizen"
   exec < /dev/tty
   npx cz --hook || true
-  exit 0
 fi
 
-# ------------------------------------------------------
-# 4️⃣ Agora tem mensagem → sair
-# ------------------------------------------------------
-echo "✔ Mensagem preenchida — concluindo sem editor"
+echo "✔ Finalizando prepare"
 exit 0
