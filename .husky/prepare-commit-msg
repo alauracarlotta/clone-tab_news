@@ -1,3 +1,4 @@
+# TODO
 # Quando o commit é normal, $2 (COMMIT_SOURCE) vem vazio
 # Quando o commit é amend, $2 = amend
 # Quando é commit automático, $3 tem hash
