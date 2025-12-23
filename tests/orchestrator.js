@@ -1,6 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config({ path: ".env.development" });
-
 import retry from "async-retry";
 
 const webServerURL = "http://localhost:3000";

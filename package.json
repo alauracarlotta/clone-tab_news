@@ -17,7 +17,7 @@
 		"lint:prettier:check": "prettier --check .",
 		"lint:prettier:fix": "prettier --write .",
 		"lint:eslint:check": "eslint .",
-		"migration:create": "node-pg-migrate --migrations-dir infra/migrations create add_new_migration",
+		"migration:create": "node-pg-migrate --migrations-dir infra/migrations --envPath .env.development create add_new_migration",
 		"migration:up": "node-pg-migrate --migrations-dir infra/migrations --envPath .env.development up",
 		"wait-for-postgres": "node infra/scripts/wait-for-postgres.js",
 		"concurrent-help": "concurrently --help",
