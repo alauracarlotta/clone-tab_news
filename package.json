@@ -8,6 +8,7 @@
 		"concurrently": "concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\"",
 		"dev": " npm run setup-env && next dev",
 		"test": "npm run services:up && npm run concurrently",
+		"posttest": "npm run services:stop",
 		"test:watch": "jest --watchAll --runInBand",
 		"build": "next build",
 		"vercel-build": "next build",
