@@ -1,9 +1,8 @@
-import database from "infra/database";
 import orchestrator from "tests/orchestrator";
 
 beforeAll(async () => {
 	await orchestrator.waitForAllServices();
-	await database.query("drop schema public cascade; create schema public;");
+	await orchestrator.clearDatabase();
 }, 60000);
 
 describe("POST /api/v1/migrations", () => {
@@ -24,6 +23,7 @@ describe("POST /api/v1/migrations", () => {
 				expect(Array.isArray(response1Body)).toBe(true);
 				expect(response1Body.length).toBeGreaterThan(0);
 			});
+
 			test("For second time", async () => {
 				// ## 2ª REQUEST
 				const response2 = await fetch(
