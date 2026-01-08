@@ -9,7 +9,7 @@
 		"dev": " npm run setup-env && next dev",
 		"test": "npm run services:up && npm run concurrently",
 		"posttest": "npm run services:stop",
-		"test:watch": "jest --watchAll --runInBand",
+		"test:watch": "jest --watchAll --runInBand --verbose",
 		"build": "next build",
 		"vercel-build": "next build",
 		"services:up": "docker compose -f infra/compose.yaml up -d",
