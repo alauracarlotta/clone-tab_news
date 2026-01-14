@@ -1,7 +1,10 @@
-import { useFetchAPIWithSWR } from "scripts/useSWR";
+import { fetchAPI } from "scripts/fetchApi";
+import useSWR from "swr";
 
 export function UpdatedAt() {
-	const { data, isLoading } = useFetchAPIWithSWR("/api/v1/status");
+	const { data, isLoading } = useSWR("/api/v1/status", fetchAPI, {
+		refreshInterval: 2000,
+	});
 
 	let updatedAtText = "Carregando...";
 
@@ -10,6 +13,7 @@ export function UpdatedAt() {
 	}
 	return (
 		<div>
+			<h1>Status Page</h1>
 			<p>Última atualização: {updatedAtText}</p>
 		</div>
 	);
