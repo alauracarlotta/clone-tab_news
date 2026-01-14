@@ -1,27 +1,27 @@
-import useSWR from "swr";
-
-async function fetchStatus() {
-	const response = await fetch("http://localhost:3000/api/v1/status");
-	const responseBody = await response.json();
-	return responseBody;
-}
+import { ActiveConnections } from "components/ActiveConnections";
+import { MaxConnections } from "components/MaxConnections";
+import { UpdatedAt } from "components/UpdatedAt";
+import { Version } from "components/Version";
 
 export default function StatusPage() {
-	const response = useSWR("status", fetchStatus);
-	console.log(response.isValidating);
-
 	return (
 		<>
-			<h1>Status Page</h1>
-			<h2>
-				Versão: <p></p>
-			</h2>
-			<h2>
-				Conexões máximas: <p></p>
-			</h2>
-			<h2>
-				Conexões Ativas: <p></p>
-			</h2>
+			<div style={{ margin: "25px 48px" }}>
+				<h1>Status Page</h1>
+				<UpdatedAt />
+				<div style={{ display: "flex", alignItems: "center" }}>
+					<h2 style={{ marginRight: "10px" }}>Versão:</h2>
+					<Version />
+				</div>
+				<div style={{ display: "flex", alignItems: "center" }}>
+					<h2 style={{ marginRight: "10px" }}>Conexões máximas:</h2>
+					<MaxConnections />
+				</div>
+				<div style={{ display: "flex", alignItems: "center" }}>
+					<h2 style={{ marginRight: "10px" }}>Conexões Ativas:</h2>
+					<ActiveConnections />
+				</div>
+			</div>
 		</>
 	);
 }
