@@ -1,4 +1,5 @@
 import database from "infra/database.js";
+import { InternalServerError } from "infra/errors";
 
 export default async function status(request, response) {
 	// representa o controller, onde a lógica de negócio é processada, e o resultado é enviado para a view (response)
@@ -30,9 +31,13 @@ export default async function status(request, response) {
 			},
 		});
 	} catch (error) {
+		const publicErrorObject = new InternalServerError({
+			cause: error,
+		});
+
 		console.log("\n ERRO DENTRO DO CONTROLLER:");
-		console.log(error);
-		// WIP
+		console.error(publicErrorObject);
+
 		response.status(500).json({
 			error: "Internal Server Error",
 		});
