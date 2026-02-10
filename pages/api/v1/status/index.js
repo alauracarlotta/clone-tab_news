@@ -38,6 +38,6 @@ export default async function status(request, response) {
 		console.log("\n ERRO DENTRO DO CONTROLLER:");
 		console.error(publicErrorObject);
 
-		response.status(500).json(publicErrorObject);
+		response.status(500).json(publicErrorObject.toJson());
 	}
 }

@@ -1,8 +1,8 @@
 export class InternalServerError extends Error {
 	constructor({ cause }) {
-		super("Um erro interno não esperado", { cause });
+		super("Um erro interno não esperado.", { cause });
 		this.name = "InternalServerError";
-		this.action = "Entre em contato com o suport";
+		this.action = "Entre em contato com o suport.";
 		this.statusCode = 500;
 	}
 
